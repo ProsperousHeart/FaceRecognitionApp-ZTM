@@ -44,8 +44,9 @@ class App extends Component {
     const APP_ID = 'face-recog-app';
     // Change these to whatever model and image URL you want to use
     const MODEL_ID = 'face-detection';
-    const MODEL_VERSION_ID = 'aa7f35c01e0642fda5cf400f543e7c40';    
-    const IMAGE_URL = this.state.imgURL;
+    //const MODEL_VERSION_ID = 'aa7f35c01e0642fda5cf400f543e7c40';    
+    //const IMAGE_URL = this.state.imgURL;
+    const IMAGE_URL = this.state.input;
 
     const raw = JSON.stringify({
       "user_app_id": {
@@ -79,12 +80,15 @@ class App extends Component {
     // https://api.clarifai.com/v2/models/{YOUR_MODEL_ID}/outputs
     // this will default to the latest version_id
 
-    //fetch(`https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs`, requestOptions)
+    // https://clarifai.com/clarifai/main/models/face-detection
     //fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
     fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs", requestOptions)
-    //fetch("https://api.clarifai.com/v2/models/face-detection/outputs", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
+        //.then(response => response.text()) // originally provided
+        .then(response => response.json())
+        //.then(result => console.log(result)) // originally provided
+        .then((result) => {
+          console.log(result.outputs[0].data.regions[0].region_info.bounding_box);
+        })
         .catch(error => console.log('error', error));  
   }
 
