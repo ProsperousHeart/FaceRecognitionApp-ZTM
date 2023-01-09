@@ -11,7 +11,7 @@ const Rank = () => {
                 {'#42'}
             </div>
         </div>
-    )
+    );
 }
 
 export default Rank;
