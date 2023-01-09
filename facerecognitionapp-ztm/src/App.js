@@ -43,7 +43,7 @@ class App extends Component {
     const PAT = '7773bac5e6d24f0cac58ad719eba396f';
     const APP_ID = 'face-recog-app';
     // Change these to whatever model and image URL you want to use
-    const MODEL_ID = 'general-image-recognition';
+    const MODEL_ID = 'face-detection';
     const MODEL_VERSION_ID = 'aa7f35c01e0642fda5cf400f543e7c40';    
     const IMAGE_URL = this.state.imgURL;
 
@@ -80,7 +80,8 @@ class App extends Component {
     // this will default to the latest version_id
 
     //fetch(`https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs`, requestOptions)
-    fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
+    //fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
+    fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs", requestOptions)
     //fetch("https://api.clarifai.com/v2/models/face-detection/outputs", requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
