@@ -24,14 +24,15 @@ class App extends Component {
 
   onInputChange = (event) => {
     //console.log(event);
-    console.log(event.target.value);
-    this.setState({ input: event.target.value });
-    console.log(this.state.input);
+    // console.log(event.target.value);
+    this.setState({ input: event.target.value },
+      () => console.log("INPUT CHANGED:", this.state.input));
   }
 
   onBtnSubmit = () => {
-    this.setState({ imgURL: this.state.input });
-    console.log("Setting URL:", this.state.imgURL);
+    this.setState({ imgURL: this.state.input }, 
+      () => console.log("SETTING URL:", this.state.imgURL));
+
     const raw = JSON.stringify({
       "user_app_id": {
         //"user_id": "clarifai",
@@ -50,6 +51,7 @@ class App extends Component {
           }
       ]
     });
+    console.log(raw);
 
     const requestOptions = {
         method: 'POST',
