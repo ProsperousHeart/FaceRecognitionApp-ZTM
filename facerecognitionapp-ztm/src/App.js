@@ -32,20 +32,33 @@ class App extends Component {
   onBtnSubmit = () => {
     this.setState({ imgURL: this.state.input }, 
       () => console.log("SETTING URL:", this.state.imgURL));
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+    // In this section, we set the user authentication, app ID, model details, and the URL
+    // of the image we want as an input. Change these strings to run your own example.
+    /////////////////////////////////////////////////////////////////////////////////////////
+
+    const USER_ID = 'prosperousheart';
+    // Your PAT (Personal Access Token) can be found in the portal under Authentification
+    const PAT = '7773bac5e6d24f0cac58ad719eba396f';
+    const APP_ID = 'face-recog-app';
+    // Change these to whatever model and image URL you want to use
+    const MODEL_ID = 'general-image-recognition';
+    const MODEL_VERSION_ID = 'aa7f35c01e0642fda5cf400f543e7c40';    
+    const IMAGE_URL = this.state.imgURL;
 
     const raw = JSON.stringify({
       "user_app_id": {
         //"user_id": "clarifai",
-        "user_id": "prosperousheart",
+        "user_id": USER_ID,
         //"app_id": "main"
-        "app_id": "face-recog-app"
+        "app_id": APP_ID
       },
       "inputs": [
           {
               "data": {
                   "image": {
-                      //"url": "https://resume.prosperousheart.com/IMGs/20180108.jpg"
-                      "url": this.state.imgURL
+                      "url": IMAGE_URL
                   }
               }
           }
@@ -57,7 +70,7 @@ class App extends Component {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Authorization': 'Key 7773bac5e6d24f0cac58ad719eba396f' // https://docs.clarifai.com/clarifai-basics/authentication/personal-access-tokens/
+            'Authorization': 'Key ' + PAT // https://docs.clarifai.com/clarifai-basics/authentication/personal-access-tokens/
         },
         body: raw
     };
@@ -66,8 +79,8 @@ class App extends Component {
     // https://api.clarifai.com/v2/models/{YOUR_MODEL_ID}/outputs
     // this will default to the latest version_id
 
-    fetch(`https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs`, requestOptions)
-    //fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
+    //fetch(`https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs`, requestOptions)
+    fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
     //fetch("https://api.clarifai.com/v2/models/face-detection/outputs", requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
@@ -75,7 +88,7 @@ class App extends Component {
   }
 
   render() {
-    const { imgURL } = this.state;
+    //const { imgURL } = this.state;
     return (
       <div className="App">
         <FunBG id="tsparticles" />
@@ -87,7 +100,8 @@ class App extends Component {
           onInputChange={this.onInputChange} 
           onBtnSubmit={this.onBtnSubmit}
         />
-        <FaceRecognition imgURL={imgURL} />
+        {/*<FaceRecognition imgURL={imgURL} />*/}
+        <FaceRecognition imgURL={this.state.imgURL} />
       </div>
     );
   }
