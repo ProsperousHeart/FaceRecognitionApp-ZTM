@@ -5,7 +5,7 @@ import './FaceRecognition.css';
 
 const FaceRecognition = ({ boxes, imgURL }) => {
     //console.log({imgURL})
-    let img2show;
+    let img2show;  // https://reactjs.org/docs/conditional-rendering.html
     if (imgURL !== '') {
         {/*<img id="intputIMG" src={imgURL} alt="User Provided For Checking Faces" width='42%' height='auto' />*/}
         img2show = <img id="intputIMG" src={imgURL} alt="User Provided For Checking Faces" width='500px' height='auto' />;
