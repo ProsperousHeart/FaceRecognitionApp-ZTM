@@ -18,8 +18,39 @@ class App extends Component {
     super();
     this.state = {
       input: '',
-      imgURL: ''
+      imgURL: '',
+      boxes: []
     }
+  }
+
+  calcFaceLocs = (data) => {
+    //const clarifaiFaces = data.outputs[0].data.regions[0].region_info.bounding_box;
+    const clarifaiFaces = data.outputs[0].data.regions;
+    const image = document.getElementById('intputIMG')
+    const width = Number(image.width);
+    const height = Number(image.height);
+    //console.log(width, height);
+
+    let boxes = [];
+    let temp = null;
+    for(let idx = 0; idx < clarifaiFaces.length; idx++) {
+      temp = clarifaiFaces[idx].region_info.bounding_box;
+      //console.log("temp data:", temp)
+      boxes.push({
+        leftCol: temp.left_col * width,
+        topRow: temp.top_row * height,
+        rightCol: width - (temp.right_col * width),
+        bottomRow: height - (temp.bottom_row * height)
+      });
+    }
+
+    //console.log(boxes);
+    return boxes;
+  }
+
+  dispFaceBox = (boxes) => {
+    //console.log(boxes);
+    this.setState({boxes: boxes});
   }
 
   onInputChange = (event) => {
@@ -65,7 +96,7 @@ class App extends Component {
           }
       ]
     });
-    console.log(raw);
+    //console.log(raw);
 
     const requestOptions = {
         method: 'POST',
@@ -86,10 +117,8 @@ class App extends Component {
         //.then(response => response.text()) // originally provided
         .then(response => response.json())
         //.then(result => console.log(result)) // originally provided
-        .then((result) => {
-          console.log(result.outputs[0].data.regions[0].region_info.bounding_box);
-        })
-        .catch(error => console.log('error', error));  
+        .then(result => this.dispFaceBox(this.calcFaceLocs(result)))
+        .catch(error => console.log('error', error));  // promise if something fails
   }
 
   render() {
@@ -106,7 +135,10 @@ class App extends Component {
           onBtnSubmit={this.onBtnSubmit}
         />
         {/*<FaceRecognition imgURL={imgURL} />*/}
-        <FaceRecognition imgURL={this.state.imgURL} />
+        <FaceRecognition
+          boxes={this.state.boxes}
+          imgURL={this.state.imgURL}
+        />
       </div>
     );
   }
