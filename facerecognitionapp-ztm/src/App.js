@@ -7,6 +7,7 @@ import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+import SignIn from './components/SignIn/SignIn';
 
 //const app = new Clarifai.App({
 //  apiKey: '54c74347450044b2be92c6550f227a70'
@@ -128,13 +129,13 @@ class App extends Component {
         <FunBG id="tsparticles" />
         {/*<Particles options={particlesOptions}/>*/}
         <Navigation />
+        <SignIn />
         <Logo />
         <Rank />
         <ImageLinkForm 
           onInputChange={this.onInputChange} 
           onBtnSubmit={this.onBtnSubmit}
         />
-        {/*<FaceRecognition imgURL={imgURL} />*/}
         <FaceRecognition
           boxes={this.state.boxes}
           imgURL={this.state.imgURL}
