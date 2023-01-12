@@ -22,10 +22,18 @@ class App extends Component {
     }
   }
 
+/* --- for testing ---
+  componentDidMount() { //lifecycle component with React
+    fetch('http://localhost:3000/')
+      .then(resp => resp.json())
+      .then(console.log) // same as (data => console.log(data))
+  }
+*/
+
   calcFaceLocs = (data) => {
     //const clarifaiFaces = data.outputs[0].data.regions[0].region_info.bounding_box;
     const clarifaiFaces = data.outputs[0].data.regions;
-    const image = document.getElementById('intputIMG')
+    const image = document.getElementById('intputIMG');
     const width = Number(image.width);
     const height = Number(image.height);
     //console.log(width, height);
@@ -122,11 +130,11 @@ class App extends Component {
 
   onRouteChg = (route) => {
     if (route === 'signout') {
-      this.setState({isSignedIn: false})
+      this.setState({isSignedIn: false});
     } else if (route === 'home') {
-      this.setState({isSignedIn: true})
+      this.setState({isSignedIn: true});
     }
-    this.setState({route: route})
+    this.setState({route: route});
   }
 
   render() {
