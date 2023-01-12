@@ -4,7 +4,7 @@ import React from 'react';
 const Register = ({ onRouteChg }) => {
 
     return (
-        <article className="br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
+        <article className="br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center form-panels">
             <main className="pa4 black-80">
                 {/*<form className="measure">*/}
                 <div className="measure">
