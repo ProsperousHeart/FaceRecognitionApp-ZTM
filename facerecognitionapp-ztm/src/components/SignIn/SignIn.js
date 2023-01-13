@@ -29,14 +29,18 @@ class SignIn extends React.Component {
             })
         })
             .then(resp => resp.json())
+            //.then(console.log);
             .then(data => {
-                if (data === 'success') {
-                    //this.props.onRouteChg('home');
-                    console.log("winning?");
-                } else {
+                //if (data === 'success') {
+                if (data.id) {
+                    //console.log("winning?");
+                    this.props.loadUser(data);
+                    this.props.onRouteChg('home');
+                } /*else {
                     console.log(data);
-                }
+                }*/
             });
+        //this.props.onRouteChg('home');
     }
 
     render() {
@@ -44,7 +48,7 @@ class SignIn extends React.Component {
         return (
             <article className="br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center form-panels">
                 <main className="pa4 black-80">
-                    <form className="measure">
+                    <div className="measure">
                         <fieldset id="sign_in" className="ba b--transparent ph0 mh0">
                         <legend className="f1 fw6 ph0 mh0">Sign In</legend>
                         <div className="mt3">
@@ -82,7 +86,7 @@ class SignIn extends React.Component {
                             <p onClick={() => onRouteChg('register')} className="f6 link dim black db pointer">Register</p>
                             {/*<a href="#0" className="f6 link dim black db">Forgot your password?</a>*/}
                         </div>
-                    </form>
+                    </div>
                 </main>
             </article>
         );
