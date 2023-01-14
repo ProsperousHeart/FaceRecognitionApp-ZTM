@@ -20,27 +20,33 @@ class SignIn extends React.Component {
 
     onSubmitSignIn = () => {
         // console.log(this.state);
-        fetch('http://localhost:3000/signin', {
-            method: 'post',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                email: this.state.signInEmail,
-                password: this.state.signInPassword
+        const { signInEmail, signInPassword } = this.state;
+        if (signInEmail==='' || signInPassword==='') {
+            console.log('Please provide login credentials');
+        } else {
+            fetch('http://localhost:3000/signin', {
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    email: signInEmail,
+                    password: signInPassword
+                })
             })
-        })
-            .then(resp => resp.json())
-            //.then(console.log);
-            .then(data => {
-                //if (data === 'success') {
-                if (data.id) {
-                    //console.log("winning?");
-                    this.props.loadUser(data);
-                    this.props.onRouteChg('home');
-                } /*else {
-                    console.log(data);
-                }*/
-            });
-        //this.props.onRouteChg('home');
+                .then(resp => resp.json())
+                //.then(console.log);
+                .then(user => {
+                    //if (user === 'success') {
+                    if (user.id) {
+                        //console.log("winning?");
+                        this.props.loadUser(user);
+                        this.props.onRouteChg('home');
+                    } else {
+                        console.log(user);
+                    }
+                })
+                .catch(err => console.log);
+            //this.props.onRouteChg('home');
+        }
     }
 
     render() {
