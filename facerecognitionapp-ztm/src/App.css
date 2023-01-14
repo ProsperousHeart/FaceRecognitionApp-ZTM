@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.form-panels{
+  background: white;
+}
+
 /*.App-logo {
   height: 40vmin;
   pointer-events: none;

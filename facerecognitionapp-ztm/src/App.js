@@ -9,23 +9,52 @@ import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import SignIn from './components/SignIn/SignIn';
 import Register from './components/Register/Register';
 
+const initialState = {
+  input: '',
+  imgURL: '',
+  boxes: [],
+  route: 'signin',
+  isSignedIn: false,
+  user: {
+    id: '',
+    name: '',
+    email: '',
+    entries: 0,
+    joined: ''
+  }
+}
+
 // function App() { // original - functional component
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      input: '',
-      imgURL: '',
-      boxes: [],
-      route: 'signin',
-      isSignedIn: false
-    }
+    this.state = initialState;
+  }
+
+/* --- for testing ---
+  componentDidMount() { //lifecycle component with React
+    fetch('http://localhost:3000/')
+      .then(resp => resp.json())
+      .then(console.log) // same as (data => console.log(data))
+  }
+*/
+
+  loadUser = (data) => {
+    this.setState({
+      user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        entries: data.entries,
+        joined: data.joined
+      }
+    })
   }
 
   calcFaceLocs = (data) => {
     //const clarifaiFaces = data.outputs[0].data.regions[0].region_info.bounding_box;
     const clarifaiFaces = data.outputs[0].data.regions;
-    const image = document.getElementById('intputIMG')
+    const image = document.getElementById('intputIMG');
     const width = Number(image.width);
     const height = Number(image.height);
     //console.log(width, height);
@@ -59,7 +88,7 @@ class App extends Component {
       () => console.log("INPUT CHANGED:", this.state.input));
   }
 
-  onBtnSubmit = () => {
+  onImgSubmit = () => {
     this.setState({ imgURL: this.state.input }, 
       () => console.log("SETTING URL:", this.state.imgURL));
     
@@ -116,21 +145,42 @@ class App extends Component {
         //.then(response => response.text()) // originally provided
         .then(response => response.json())
         //.then(result => console.log(result)) // originally provided
-        .then(result => this.dispFaceBox(this.calcFaceLocs(result)))
+        .then(result => {
+          if (result) {
+            fetch('http://localhost:3000/image', {
+              method: 'put',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                  id: this.state.user.id
+              })
+            })
+              .then(res => res.json())
+              .then(count => {
+                /*this.setState({
+                  user: {
+                    entries: count
+                  }
+                })*/
+                this.setState(Object.assign(this.state.user, { entries: count}));
+              })
+          }
+          this.dispFaceBox(this.calcFaceLocs(result))
+        })
         .catch(error => console.log('error', error));  // promise if something fails
   }
 
   onRouteChg = (route) => {
     if (route === 'signout') {
-      this.setState({isSignedIn: false})
+      //this.setState({isSignedIn: false});
+      this.setState(initialState)
     } else if (route === 'home') {
       this.setState({isSignedIn: true})
     }
-    this.setState({route: route})
+    this.setState({route: route});
   }
 
   render() {
-    const { imgURL, isSignedIn, route, boxes } = this.state;
+    const { imgURL, isSignedIn, route, boxes, user } = this.state;
     return (
       <div className="App">
         <FunBG id="tsparticles" />
@@ -139,10 +189,13 @@ class App extends Component {
         { route === 'home' 
           ? <div>
               <Logo />
-              <Rank />
+              <Rank 
+                name={user.name}
+                entries={user.entries}
+              />
               <ImageLinkForm 
                 onInputChange={this.onInputChange} 
-                onBtnSubmit={this.onBtnSubmit}
+                onImgSubmit={this.onImgSubmit}
               />
               <FaceRecognition
                 boxes={boxes}
@@ -151,8 +204,8 @@ class App extends Component {
             </div>
           : (
             route === 'register'
-            ? <Register onRouteChg={this.onRouteChg} />
-            : <SignIn onRouteChg={this.onRouteChg} />
+            ? <Register loadUser={this.loadUser} onRouteChg={this.onRouteChg} />
+            : <SignIn loadUser={this.loadUser} onRouteChg={this.onRouteChg} />
           )
         }
       </div>
