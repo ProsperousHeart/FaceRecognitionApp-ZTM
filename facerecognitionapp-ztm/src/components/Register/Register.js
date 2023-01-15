@@ -25,7 +25,7 @@ class Register extends React.Component {
     }
 
     onSubmitRegister = () => {
-        // console.log(this.state);
+        console.log(this.state);
         const { name, email, password } = this.state;
         fetch('http://localhost:3000/register', {
             method: 'post',
@@ -85,7 +85,7 @@ class Register extends React.Component {
                                 type="password"
                                 name="password"
                                 id="password"
-                                onChange={this.onPasswordChange}
+                                onChange={this.onPasswordChg}
                             />
                         </div>
                         {/*<label className="pa0 ma0 lh-copy f6 pointer"><input type="checkbox" /> Remember me</label>*/}

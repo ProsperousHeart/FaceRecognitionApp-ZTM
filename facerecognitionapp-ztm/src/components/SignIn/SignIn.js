@@ -21,9 +21,10 @@ class SignIn extends React.Component {
     onSubmitSignIn = () => {
         // console.log(this.state);
         const { signInEmail, signInPassword } = this.state;
-        if (signInEmail==='' || signInPassword==='') {
-            console.log('Please provide login credentials');
-        } else {
+
+        // if (!signInEmail || !signInPassword) {
+        //     console.log('Please provide login credentials');
+        // } else {
             fetch('http://localhost:3000/signin', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
@@ -46,7 +47,8 @@ class SignIn extends React.Component {
                 })
                 .catch(err => console.log);
             //this.props.onRouteChg('home');
-        }
+
+        // }
     }
 
     render() {
