@@ -1,6 +1,6 @@
 # About The Face Recognition App
 
-This repo is the from the portion of the final project I completed from the [ZTM Complete Web Developer Bootcamp (this link is an affiliate link)](https://academy.zerotomastery.io/a/aff_jcfsdgcx/external?affcode=441520_5cipxkgo).
+This repo is the front end portion for the final project I completed from the [ZTM Complete Web Developer Bootcamp (this link is an affiliate link)](https://academy.zerotomastery.io/a/aff_jcfsdgcx/external?affcode=441520_5cipxkgo).
 
 ## Technologies Used
 
