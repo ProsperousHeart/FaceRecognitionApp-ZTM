@@ -3,10 +3,12 @@ import React from 'react';
 
 class SignIn extends React.Component {
     constructor(props) {
+        // console.log(props);
         super(props);
         this.state = {
             signInEmail: '',
-            signInPassword: ''
+            signInPassword: '',
+            SMARTBRAIN_BE: this.props.SMARTBRAIN_BE
         }
     }
 
@@ -20,12 +22,13 @@ class SignIn extends React.Component {
 
     onSubmitSignIn = () => {
         // console.log(this.state);
-        const { signInEmail, signInPassword } = this.state;
+        const { signInEmail, signInPassword, SMARTBRAIN_BE } = this.state;
 
         // if (!signInEmail || !signInPassword) {
         //     console.log('Please provide login credentials');
         // } else {
-            fetch('http://localhost:3000/signin', {
+            // console.log(SMARTBRAIN_BE + '/signin');
+            fetch(SMARTBRAIN_BE + '/signin', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
