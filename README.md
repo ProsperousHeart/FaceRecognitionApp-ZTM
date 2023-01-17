@@ -9,7 +9,7 @@ In order to complete the entire project, the following technologies and language
 1. FRONT END (you are here):
 
     - HTML & CSS
-    - JavaScript & [React](https://reactjs.org/)
+    - JavaScript & [React](https://reactjs.org/) (see [setup info for GitHub Pages here](https://create-react-app.dev/docs/deployment/#github-pages))
     - [tachyons](https://tachyons.io/)
     - [tsparticles](https://particles.js.org/)
     - hosted on [GitHub pages](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
