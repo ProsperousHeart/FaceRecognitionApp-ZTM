@@ -8,7 +8,8 @@ class Register extends React.Component {
         this.state = {
             name: '',
             email: '',
-            password: ''
+            password: '',
+            SMARTBRAIN_BE: this.props.SMARTBRAIN_BE
         }
     }
 
@@ -25,9 +26,10 @@ class Register extends React.Component {
     }
 
     onSubmitRegister = () => {
-        console.log(this.state);
-        const { name, email, password } = this.state;
-        fetch('http://localhost:3000/register', {
+        // console.log(this.state);
+        const { name, email, password, SMARTBRAIN_BE } = this.state;
+        // if (!name || !email || !password) {}
+        fetch(SMARTBRAIN_BE + '/register', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
