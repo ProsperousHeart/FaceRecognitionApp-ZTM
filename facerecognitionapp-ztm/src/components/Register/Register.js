@@ -8,7 +8,8 @@ class Register extends React.Component {
         this.state = {
             name: '',
             email: '',
-            password: ''
+            password: '',
+            SMARTBRAIN_BE: this.props.SMARTBRAIN_BE
         }
     }
 
@@ -26,32 +27,29 @@ class Register extends React.Component {
 
     onSubmitRegister = () => {
         // console.log(this.state);
-        const { name, email, password } = this.state;
-        // if (name==='' || email==='' || password==='') {
-        //     console.log("Please fill in all requested data.");
-        // } else {
-            fetch('http://localhost:3000/register', {
-                method: 'post',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    name: name,
-                    email: email,
-                    password: password
-                })
+        const { name, email, password, SMARTBRAIN_BE } = this.state;
+        // if (!name || !email || !password) {}
+        fetch(SMARTBRAIN_BE + '/register', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: password
             })
-                .then(resp => resp.json())
-                //.then(console.log);
-                .then(user => {
-                    if (user.id) {
-                        //console.log("winning?");
-                        this.props.loadUser(user);
-                        this.props.onRouteChg('home');
-                    } /*else {
-                        console.log(data);
-                    }*/
-                });
-            //this.props.onRouteChg('home');}
-        // }
+        })
+            .then(resp => resp.json())
+            //.then(console.log);
+            .then(user => {
+                if (user.id) {
+                    //console.log("winning?");
+                    this.props.loadUser(user);
+                    this.props.onRouteChg('home');
+                } /*else {
+                    console.log(data);
+                }*/
+            });
+        //this.props.onRouteChg('home');}
     }
 
     render() {
@@ -89,7 +87,7 @@ class Register extends React.Component {
                                 type="password"
                                 name="password"
                                 id="password"
-                                onChange={this.onPasswordChange}
+                                onChange={this.onPasswordChg}
                             />
                         </div>
                         {/*<label className="pa0 ma0 lh-copy f6 pointer"><input type="checkbox" /> Remember me</label>*/}
