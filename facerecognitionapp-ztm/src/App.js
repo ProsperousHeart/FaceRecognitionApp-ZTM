@@ -9,6 +9,8 @@ import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import SignIn from './components/SignIn/SignIn';
 import Register from './components/Register/Register';
 
+// require('dotenv').config();
+const SMARTBRAIN_BE = process.env.REACT_APP_BE;
 const initialState = {
   input: '',
   imgURL: '',
@@ -21,8 +23,11 @@ const initialState = {
     email: '',
     entries: 0,
     joined: ''
-  }
+  },
+  SMARTBRAIN_BE: SMARTBRAIN_BE
 }
+
+
 
 // function App() { // original - functional component
 class App extends Component {
@@ -93,7 +98,8 @@ class App extends Component {
     this.setState({ imgURL: this.state.input }, 
       () => console.log("SETTING URL:", this.state.imgURL));
     
-      fetch('http://localhost:3000/imageURL', {
+      // fetch('http://localhost:3000/imageURL', {
+        fetch(SMARTBRAIN_BE + '/imageURL', {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -106,7 +112,8 @@ class App extends Component {
         // console.log("onIMGSubmit API call:", result);
         if (result) {
           this.dispFaceBox(result)
-          fetch('http://localhost:3000/image', {
+          // fetch('http://localhost:3000/image', {
+          fetch(SMARTBRAIN_BE + '/image', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -140,7 +147,7 @@ class App extends Component {
   }
 
   render() {
-    const { imgURL, isSignedIn, route, boxes, user } = this.state;
+    const { imgURL, isSignedIn, route, boxes, user, SMARTBRAIN_BE } = this.state;
     return (
       <div className="App">
         <FunBG id="tsparticles" />
@@ -164,8 +171,8 @@ class App extends Component {
             </div>
           : (
             route === 'register'
-            ? <Register loadUser={this.loadUser} onRouteChg={this.onRouteChg} />
-            : <SignIn loadUser={this.loadUser} onRouteChg={this.onRouteChg} />
+            ? <Register loadUser={this.loadUser} onRouteChg={this.onRouteChg} SMARTBRAIN_BE={SMARTBRAIN_BE} />
+            : <SignIn loadUser={this.loadUser} onRouteChg={this.onRouteChg} SMARTBRAIN_BE={SMARTBRAIN_BE} />
           )
         }
       </div>
