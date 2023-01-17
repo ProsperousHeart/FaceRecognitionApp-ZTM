@@ -17,6 +17,8 @@ In order to complete the entire project, the following technologies and language
 
 2. BACKEND SERVER:
 
+    The code for this is in [this repo](https://github.com/ProsperousHeart/smart-brain-ZTM-render/tree/ZTM) - which was originally forked from Render's Node.js template. So while it says there are contributors ... None of those contributors were a part of this project.
+
     - [Node.js](https://nodejs.org/) & [Express.js](https://expressjs.com/)
     - [bcrypt-nodejs](https://www.npmjs.com/package/bcrypt-nodejs) - not currently maintained and should use alternative in the future (still works though)
     - [cors](https://www.npmjs.com/package/cors)
