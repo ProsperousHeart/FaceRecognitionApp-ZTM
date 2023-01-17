@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/FaceRecognitionApp-ZTM/static/css/main.62cd6636.css",
-    "main.js": "/FaceRecognitionApp-ZTM/static/js/main.38cd1472.js",
+    "main.js": "/FaceRecognitionApp-ZTM/static/js/main.91a8a89f.js",
     "static/js/787.12a62c01.chunk.js": "/FaceRecognitionApp-ZTM/static/js/787.12a62c01.chunk.js",
     "static/media/white.png": "/FaceRecognitionApp-ZTM/static/media/white.9bdd96abfe2d275d23f6.png",
     "index.html": "/FaceRecognitionApp-ZTM/index.html",
     "main.62cd6636.css.map": "/FaceRecognitionApp-ZTM/static/css/main.62cd6636.css.map",
-    "main.38cd1472.js.map": "/FaceRecognitionApp-ZTM/static/js/main.38cd1472.js.map",
+    "main.91a8a89f.js.map": "/FaceRecognitionApp-ZTM/static/js/main.91a8a89f.js.map",
     "787.12a62c01.chunk.js.map": "/FaceRecognitionApp-ZTM/static/js/787.12a62c01.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.62cd6636.css",
-    "static/js/main.38cd1472.js"
+    "static/js/main.91a8a89f.js"
   ]
 }
