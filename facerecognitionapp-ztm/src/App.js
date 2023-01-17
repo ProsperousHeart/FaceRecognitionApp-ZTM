@@ -10,7 +10,9 @@ import SignIn from './components/SignIn/SignIn';
 import Register from './components/Register/Register';
 
 // require('dotenv').config();
+// const SMARTBRAIN_BE = process.env.REACT_APP_BE;
 const SMARTBRAIN_BE = process.env.REACT_APP_BE;
+// console.log("start of script:", SMARTBRAIN_BE);
 const initialState = {
   input: '',
   imgURL: '',
@@ -148,6 +150,7 @@ class App extends Component {
 
   render() {
     const { imgURL, isSignedIn, route, boxes, user, SMARTBRAIN_BE } = this.state;
+    // console.log("render:", SMARTBRAIN_BE);
     return (
       <div className="App">
         <FunBG id="tsparticles" />
